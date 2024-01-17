@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public class PlayerAiming : MonoBehaviour
 {
@@ -11,6 +13,9 @@ public class PlayerAiming : MonoBehaviour
     [SerializeField] float gamepadRotateSmoothing = 1000f;
     Vector2 aimDir;
     bool isGamepad;
+
+    private float rayDistance;
+    RaycastHit2D rayHit;
 
     PlayerInput playerInput;
     PlayerInputActions inputActions;
@@ -35,6 +40,7 @@ public class PlayerAiming : MonoBehaviour
     {
         aimDir = inputActions.Player.Aim.ReadValue<Vector2>();
         HandleRotation();
+        //ProcessTargetInformation();
     }
 
     void HandleRotation()
@@ -62,11 +68,18 @@ public class PlayerAiming : MonoBehaviour
         }
     }
 
-    void LookAt(Vector3 lookPoint)
-    {
-        Vector3 heightCorrectedPoint = new Vector3(lookPoint.x, lookPoint.y, lookPoint.z);
-        aimPoint.LookAt(heightCorrectedPoint);
-    }
+    //void ProcessTargetInformation()
+    //{
+    //    rayHit = Physics2D.Raycast(transform.position, aimDir, rayDistance);
+    //    Debug.DrawRay(transform.position, aimDir * rayDistance, Color.green);
+
+    //    if (rayHit.collider == null)
+    //        return;
+
+    //    targetText.text = rayHit.collider.name;
+
+    //    // Draw the ray in the Scene view for visualization
+    //}
 
     public void OnDeviceChange(PlayerInput pi)
     {
