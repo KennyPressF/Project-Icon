@@ -6,8 +6,13 @@ using UnityEngine.InputSystem;
 
 public class InputManager : MonoBehaviour
 {
-    public static PlayerInputActions inputActions = new PlayerInputActions();
+    public static PlayerInputActions inputActions;
     public static event Action<InputActionMap> actionMapChange;
+
+    private void Awake()
+    {
+        inputActions = new PlayerInputActions();
+    }
 
     // Start is called before the first frame update
     void Start()

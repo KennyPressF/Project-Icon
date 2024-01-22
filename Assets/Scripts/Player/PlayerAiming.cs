@@ -17,30 +17,10 @@ public class PlayerAiming : MonoBehaviour
     private float rayDistance;
     RaycastHit2D rayHit;
 
-    PlayerInput playerInput;
-    PlayerInputActions inputActions;
-
-    private void Awake()
-    {
-        playerInput = GetComponent<PlayerInput>();
-        inputActions = new PlayerInputActions();
-    }
-
-    private void OnEnable()
-    {
-        inputActions.Enable();
-    }
-
-    private void OnDisable()
-    {
-        inputActions.Disable();
-    }
-
     private void Update()
     {
-        aimDir = inputActions.Player.Aim.ReadValue<Vector2>();
+        aimDir = InputManager.inputActions.Player.Aim.ReadValue<Vector2>();
         HandleRotation();
-        //ProcessTargetInformation();
     }
 
     void HandleRotation()
@@ -67,19 +47,6 @@ public class PlayerAiming : MonoBehaviour
             aimPoint.rotation = Quaternion.Euler(0f, 0f, -angle);
         }
     }
-
-    //void ProcessTargetInformation()
-    //{
-    //    rayHit = Physics2D.Raycast(transform.position, aimDir, rayDistance);
-    //    Debug.DrawRay(transform.position, aimDir * rayDistance, Color.green);
-
-    //    if (rayHit.collider == null)
-    //        return;
-
-    //    targetText.text = rayHit.collider.name;
-
-    //    // Draw the ray in the Scene view for visualization
-    //}
 
     public void OnDeviceChange(PlayerInput pi)
     {
