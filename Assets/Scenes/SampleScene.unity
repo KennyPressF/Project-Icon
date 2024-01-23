@@ -295,6 +295,7 @@ Transform:
   m_Children:
   - {fileID: 1990133374}
   - {fileID: 1965620130}
+  - {fileID: 1927256900}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &601934457
@@ -370,7 +371,19 @@ MonoBehaviour:
     m_ActionId: 3caf5e89-d34d-4643-ad7f-1031f7e431b6
     m_ActionName: Player/Aim[/DualSenseGamepadHID/rightStick,/Mouse/delta]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 673834302}
+        m_TargetAssemblyTypeName: PlayerCombat, Assembly-CSharp
+        m_MethodName: ProcessAttack
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: ac22eebc-0f2f-4f8f-a32b-8ec5b9fdc5b1
     m_ActionName: Player/Fire[/DualSenseGamepadHID/rightTrigger,/Mouse/leftButton]
   - m_PersistentCalls:
@@ -415,7 +428,7 @@ MonoBehaviour:
     m_ActionName: UI/TrackedDeviceOrientation
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: Player
+  m_DefaultActionMap: UI
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!58 &601934460
@@ -520,7 +533,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0038589165, y: 0.9808263}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -531,7 +544,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.24762811, y: 0.90765464}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
 --- !u!95 &673834301
 Animator:
@@ -566,7 +579,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2750f58d123bd09479b66c1965149a81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentWeapon: {fileID: 11400000, guid: 27589fadc72eaf74e992411817262041, type: 2}
+  currentWeapon: {fileID: 11400000, guid: c09ff3ef1bf9a00459f2f1aa371db242, type: 2}
+  attackCooldown: 0
+  weaponEffectSprites:
+  - {fileID: 21300000, guid: 25667f0f4eccf5f4d97dbf1e1cddb4f1, type: 3}
+  - {fileID: 21300000, guid: a0abfe12fd104504887aa9847023df58, type: 3}
+  - {fileID: 21300000, guid: d501a327b854b094baa7db4ef8652e31, type: 3}
+  - {fileID: 21300000, guid: 35c2b3bbb219fd84d8ad4b63a4a9f5a7, type: 3}
+  - {fileID: 21300000, guid: 2e2936fcf7dd95f478cb67eab8765ca4, type: 3}
 --- !u!1 &1241638837
 GameObject:
   m_ObjectHideFlags: 0
@@ -768,7 +788,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d501a327b854b094baa7db4ef8652e31, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a0abfe12fd104504887aa9847023df58, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -779,6 +799,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1927256899
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1927256900}
+  m_Layer: 0
+  m_Name: Inventory
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1927256900
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1927256899}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 601934456}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1965620129
 GameObject:
   m_ObjectHideFlags: 0

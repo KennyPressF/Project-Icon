@@ -31,4 +31,13 @@ public class InputManager : MonoBehaviour
         actionMapChange?.Invoke(actionMap);
         actionMap.Enable();
     }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+
+            ToggleActionMap(inputActions.UI);
+        }
+    }
 }

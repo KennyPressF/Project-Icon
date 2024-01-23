@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: BattleAxe_WeaponSO
   m_EditorClassIdentifier: 
   itemID: 0
-  weaponName: 
+  weaponName: Battle Axe
   sprite: {fileID: 0}
   attackType: 0
-  baseDamage: 0
-  attackCooldown: 0
+  baseDamage: 5
+  attackCooldown: 3.5

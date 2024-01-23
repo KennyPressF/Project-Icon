@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: WoodenSpear_WeaponSO
   m_EditorClassIdentifier: 
   itemID: 0
-  weaponName: Spear
+  weaponName: Wooden Spear
   sprite: {fileID: 0}
-  attackType: 2
-  baseDamage: 3
-  attackCooldown: 0
+  attackType: 4
+  baseDamage: 1
+  attackCooldown: 0.5

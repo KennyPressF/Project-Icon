@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: GreatSword_WeaponSO
   m_EditorClassIdentifier: 
   itemID: 0
-  weaponName: 
+  weaponName: Great Sword
   sprite: {fileID: 0}
-  attackType: 0
-  baseDamage: 0
-  attackCooldown: 0
+  attackType: 1
+  baseDamage: 3
+  attackCooldown: 2

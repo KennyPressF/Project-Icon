@@ -23,16 +23,6 @@ public class PlayerCombat : MonoBehaviour
         weaponCollider = GetComponent<BoxCollider2D>();
     }
 
-    private void OnEnable()
-    {
-        InputManager.inputActions.Player.Fire.performed += ProcessAttack;
-    }
-
-    private void OnDisable()
-    {
-        InputManager.inputActions.Player.Fire.performed -= ProcessAttack;
-    }
-
     private void Start()
     {
         attackCooldown = 0f;
@@ -56,7 +46,7 @@ public class PlayerCombat : MonoBehaviour
         }
     }
 
-    void ProcessAttack(InputAction.CallbackContext context)
+    public void ProcessAttack(InputAction.CallbackContext context)
     {
         if(!canAttack) { return; }
 

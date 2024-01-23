@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: BastardSword_WeaponSO
   m_EditorClassIdentifier: 
   itemID: 0
-  weaponName: Sword
+  weaponName: Bastard Sword
   sprite: {fileID: 0}
   attackType: 0
-  baseDamage: 3
-  attackCooldown: 0
+  baseDamage: 2
+  attackCooldown: 1

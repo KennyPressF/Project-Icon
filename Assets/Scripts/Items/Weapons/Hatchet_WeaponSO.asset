@@ -16,5 +16,5 @@ MonoBehaviour:
   weaponName: Hatchet
   sprite: {fileID: 0}
   attackType: 3
-  baseDamage: 3
-  attackCooldown: 0
+  baseDamage: 2.2
+  attackCooldown: 1.2
