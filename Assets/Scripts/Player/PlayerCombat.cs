@@ -26,6 +26,7 @@ public class PlayerCombat : MonoBehaviour
     private void Start()
     {
         attackCooldown = 0f;
+        weaponCollider.enabled = false;
     }
 
     public void SetWeapon(WeaponSO weaponSO)
@@ -93,8 +94,18 @@ public class PlayerCombat : MonoBehaviour
     public void EndAttack()
     {
         weaponCollider.enabled = false;
-        spriteRenderer.enabled = false;
+        //spriteRenderer.enabled = false;
         animator.Play("NoWeapon");
         attackCooldown = currentWeapon.attackCooldown;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        IDamageable damageInterface = collision.GetComponent<IDamageable>();
+
+        if (damageInterface != null)
+        {
+            damageInterface.LoseHealth(currentWeapon.baseDamage);
+        }
     }
 }

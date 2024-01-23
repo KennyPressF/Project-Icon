@@ -4,5 +4,7 @@ using UnityEngine;
 
 public interface IDamageable
 {
-    public void ChangeCurrentHealth(bool healthGained, float healthValue);
+    public void GainHealth(float healthToGain);
+    public void LoseHealth(float healthToLose);
+    public void Die();
 }
