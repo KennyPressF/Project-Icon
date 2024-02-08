@@ -6,32 +6,47 @@ using UnityEngine.InputSystem;
 public class PlayerCombat : MonoBehaviour
 {
     [SerializeField] WeaponSO currentWeapon;
+    private string weaponAnimationName;
 
+    [SerializeField] float currentDamageOutput;
     [SerializeField] float attackCooldown;
     bool canAttack;
 
     [SerializeField] Sprite[] weaponEffectSprites;
-    
+
+    [SerializeField] GameObject projectilePrefab;
+    private List<GameObject> projectilePool = new List<GameObject>();
+    [SerializeField] Transform spawnPoint;
+
     Animator animator;
     SpriteRenderer spriteRenderer;
     BoxCollider2D weaponCollider;
 
     private void Awake()
     {
-        animator = GetComponent<Animator>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         weaponCollider = GetComponent<BoxCollider2D>();
+        animator = GetComponent<Animator>();
     }
 
     private void Start()
     {
         attackCooldown = 0f;
         weaponCollider.enabled = false;
+
+        SetWeapon(currentWeapon);
     }
 
     public void SetWeapon(WeaponSO weaponSO)
     {
         currentWeapon = weaponSO;
+        spriteRenderer.sprite = currentWeapon.spriteForAnimation;
+        currentDamageOutput = currentWeapon.baseDamage;
+        weaponAnimationName = currentWeapon.attackType.ToString();
+        if(currentWeapon.isRanged)
+        {
+            projectilePrefab = currentWeapon.projectilePrefab;
+        }
     }
 
     private void Update()
@@ -49,45 +64,16 @@ public class PlayerCombat : MonoBehaviour
 
     public void ProcessAttack(InputAction.CallbackContext context)
     {
-        if(!canAttack) { return; }
+        if (!canAttack)
+            return;
 
         spriteRenderer.enabled = true;
         weaponCollider.enabled = true;
+        animator.Play(weaponAnimationName);
 
-        switch (currentWeapon.attackType)
+        if(currentWeapon.isRanged)
         {
-            case WeaponSO.AttackType.oneHandSwordSwing:
-                spriteRenderer.sprite = weaponEffectSprites[0];
-                animator.Play("OneHandedSwordSwing");
-                break;
-
-            case WeaponSO.AttackType.twoHandSwordSwing:
-                spriteRenderer.sprite = weaponEffectSprites[1];
-                animator.Play("TwoHandedSwordSwing");
-                break;
-
-            case WeaponSO.AttackType.spearJab:
-                spriteRenderer.sprite = weaponEffectSprites[2];
-                animator.Play("SpearJab");
-                break;
-
-            case WeaponSO.AttackType.oneHandAxeSwing:
-                spriteRenderer.sprite = weaponEffectSprites[3];
-                animator.Play("OneHandedAxeSwing");
-                break;
-
-            case WeaponSO.AttackType.twoHandAxeSwing:
-                spriteRenderer.sprite = weaponEffectSprites[4];
-                animator.Play("TwoHandedAxeSwing");
-                break;
-
-            case WeaponSO.AttackType.projectileShot:
-                //Handle Projectiles differently;
-                break;
-
-            default:
-                Debug.LogError("The PlayerCombat switch statement hit the DEFAULT condition.");
-                break;
+            SpawnProjectile();
         }
     }
 
@@ -105,7 +91,31 @@ public class PlayerCombat : MonoBehaviour
 
         if (damageInterface != null)
         {
-            damageInterface.LoseHealth(currentWeapon.baseDamage);
+            damageInterface.LoseHealth(currentDamageOutput);
         }
+    }
+
+    //Find inactive projectile from pool or add new one to pool
+    void SpawnProjectile()
+    {
+        // Search for an inactive projectile in the pool
+
+        for (int i = 0; i < projectilePool.Count; i++)
+        {
+            if (!projectilePool[i].activeInHierarchy)
+            {
+                // Reuse the inactive projectile
+                projectilePool[i].transform.position = spawnPoint.position;
+                //projectilePool[i].transform.rotation = startingRot;
+                projectilePool[i].SetActive(true);
+                return;
+            }
+        }
+
+        // If no inactive projectile is found, instantiate a new one and add it to the pool
+        GameObject newProjectile = Instantiate(projectilePrefab, spawnPoint.position, Quaternion.identity);
+        newProjectile.GetComponent<ProjectileGameObject>().SetValues(transform.up, currentWeapon.travelSpeed, currentDamageOutput);
+        //newProjectile.transform.parent = spawnedProjectiles;
+        projectilePool.Add(newProjectile);
     }
 }
